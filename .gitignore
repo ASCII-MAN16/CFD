@@ -1,0 +1,26 @@
+# Build artifacts
+*.obj
+*.o
+*.map
+*.exe
+*.com
+*.bin
+*.img
+*.iso
+
+# Debug / temporary files
+*.log
+*.tmp
+*.bak
+*~
+
+# DOS/emulator generated files
+*.dsk
+*.vhd
+*.qcow2
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
