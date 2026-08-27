@@ -2,7 +2,7 @@ bits 16 ; чтоб ТОЧНО генерировал 16 битный код
 
 global _start ; все это для .exe а не .com
 
-section _TEXT class=CODE ; хуйня для WCC, чтоб видел нашь код там где надо
+section _TEXT class=CODE ; для WCC, чтоб видел нашь код там где надо
 
 extern map_load ;наш map.asm
 extern map_find_player ;наш map.asm
@@ -14,16 +14,16 @@ WALL equ '#'
 
 _start:
 
-    mov ax, _DATA        ; ЧТОБ ПАДЛА МНЕ НИХУЯ НЕ ЛОМАЛА (WCC видеть дата, игра работать. ХЫ)
+    mov ax, _DATA        ; ЧТОБ ПАДЛА МНЕ НЕ ЛОМАЛА (WCC видеть дата, игра работать. ХЫ)
     mov ds, ax
 
     call load_room
 
     mov ax, 0xB800
     mov es, ax 
-
+    ;магия пола
     mov dx, [es:si]
-    mov [kolin_floor], dx ;магия пола
+    mov [kolin_floor], dx
 
     mov word [es:si], 0x0902 ; КОЛИН=ПСИНА. Превращем Псину в Колина
 
@@ -86,13 +86,14 @@ _start:
         je gloop
         cmp dl, 0xF8 ; °
         je gloop
-        cmp dl, 0x13 ; (‼) какя то хуйня которую через hex надо :\
+        cmp dl, 0x13 ; (‼) какя то хуйня которую через hex надо :\ 
         je gloop
         cmp dl, 0xDC ; ▄ допустим лужа латекса
         je death
         cmp dl, WALL
         je gloop
-        mov ax, [kolin_floor] ;херня, чтоб Колин пол не рушил
+        ;херня, чтоб Колин пол не рушил
+        mov ax, [kolin_floor]
         mov [es:si], ax
         mov [kolin_floor], dx
         mov si, bx
